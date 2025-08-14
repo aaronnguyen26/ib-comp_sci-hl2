@@ -2,7 +2,10 @@
 {
     static void Main(string[] args)
     {
+        Console.ForegroundColor = ConsoleColor.Green;
         string userName = GetString("Hello, what is your name?");
+
+        Console.ForegroundColor = ConsoleColor.Blue;
         int gradeLevel = GetInt($"Hello {userName}, what is your grade level?: ");
         int numClass = GetInt($"How many classes do you have this semester {userName}?: ");
 
