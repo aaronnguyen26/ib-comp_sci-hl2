@@ -16,12 +16,12 @@
 
     public static void PrintTranscript(string userName, int gradeLevel, List<string> studentSchedule, List<int> studentGrades, double GPACalculation)
     {
-        System.Console.WriteLine(" ====== REPORT CARD ======");
+        Console.WriteLine(" ====== REPORT CARD ======");
         Console.WriteLine($"Student: {userName}");
         Console.WriteLine($"Grade: {gradeLevel}");
 
 
-        System.Console.WriteLine("-----------------------------");
+        Console.WriteLine("-----------------------------");
         Console.WriteLine($"{"Period",-10} {"Class",-10} {"Grades"}"); // string padding: (variable, alignment)
         for (int i = 0; i < studentSchedule.Count; i++)
         {
@@ -124,6 +124,6 @@
     public static string GetString(string strMessage)
     {
         System.Console.WriteLine(strMessage);
-        return Console.ReadLine() ?? "";
+        return Console.ReadLine();
     }
 }
