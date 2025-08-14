@@ -47,15 +47,35 @@
         return totalGPA / grades.Count;
     }
 
-    public static void ToLetterGrade(int grade)
+    public static string ToLetter(int grade)
     {
-        // Convert all the letter grades into integers 
+        if (grade == 5 || grade == 4)
+        {
+            return "A";
+        }
+        else if (grade == 3)
+        {
+            return "B";
+        }
+        else if (grade == 2)
+        {
+            return "C";
+        }
+        else if (grade == 1)
+        {
+            return "D";
+        }
+        else
+        {
+            return "F";
+        }
     }
 
     public static List<int> GetGrades(List<string> schedule)
     {
         List<int> grades = new List<int>();
         Console.WriteLine("Grades: F=0, D=1, C=2, B=3, A=4, Weighted A=5");
+
         foreach (string s in schedule)
         {
             int grade = GetInt($"ENTER YOUR GRADE !!!! for {s}: ");
