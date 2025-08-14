@@ -9,11 +9,6 @@
         List<string> studentSchedule = GetStudentSchedule(numClass);
         List<int> studentGrades = GetGrades(studentSchedule);
 
-        for (int i = 0; i < studentGrades.Count; i++)
-        {
-            System.Console.WriteLine($"{i + 1} {studentSchedule[i]}: {studentGrades[i]}");
-        }
-
         double studentGpa = CalculateGPA(studentGrades);
         PrintTranscript(userName, gradeLevel, studentSchedule, studentGrades, studentGpa);
     }
@@ -22,15 +17,15 @@
     public static void PrintTranscript(string userName, int gradeLevel, List<string> studentSchedule, List<int> studentGrades, double GPACalculation)
     {
         System.Console.WriteLine(" ====== REPORT CARD ======");
+        Console.WriteLine($"Student: {userName}");
+        Console.WriteLine($"Grade: {gradeLevel}");
 
-        Console.WriteLine($"Student Name: {userName}");
-        Console.WriteLine($"Grade Level: {gradeLevel}");
-        Console.WriteLine("-----------------------------");
 
-        Console.WriteLine("Course Grades:");
+        System.Console.WriteLine("-----------------------------");
+        Console.WriteLine($"{"Period",-10} {"Class",-10} {"Grades"}"); // string padding: (variable, alignment)
         for (int i = 0; i < studentSchedule.Count; i++)
         {
-            Console.WriteLine($"  - {studentSchedule[i]}: {studentGrades[i]}");
+            Console.WriteLine($"{i + 1,-10} {studentSchedule[i],-10} {ToLetter(studentGrades[i])} ({studentGrades[i]})");
         }
         Console.WriteLine("-----------------------------");
         Console.WriteLine($"GPA: {GPACalculation:F2}");
@@ -39,6 +34,10 @@
 
     public static double CalculateGPA(List<int> grades)
     {
+        if (grades.Count == 0)
+        {
+            return 0.0;
+        }
         double totalGPA = 0.0;
         foreach (int grade in grades)
         {
@@ -78,10 +77,16 @@
 
         foreach (string s in schedule)
         {
-            int grade = GetInt($"ENTER YOUR GRADE !!!! for {s}: ");
-            if (grade > 5 || grade < 0)
+            int grade;
+            grade = -1;
+
+            while (grade < 0 || grade > 5)
             {
-                Console.WriteLine($"Please enter a valid grade between 0 and 5 for {s}");
+                grade = GetInt($"ENTER YOUR GRADE !!!! for {s}: ");
+                if (grade > 5 || grade < 0)
+                {
+                    Console.WriteLine($"Please enter a valid grade between 0 and 5 for {s}");
+                }
             }
             grades.Add(grade);
         }
