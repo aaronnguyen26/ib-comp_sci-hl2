@@ -5,7 +5,7 @@ public class PersonModel
 
     public string LastName { get; set; }
 
-
+    public int MyProperty { get; set; }
 
 
 
