@@ -33,7 +33,7 @@ internal class OOPReportCardApp
         while (!isInt)
         {
             System.Console.WriteLine("Integers only please");
-
+            isInt = Int32.TryParse(Console.ReadLine(), out output);
         }
         return output;
     }
