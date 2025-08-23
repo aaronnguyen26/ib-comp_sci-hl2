@@ -24,4 +24,17 @@ internal class OOPReportCardApp
         return output;
     }
 
+    public static int GetInt(string msg)
+    {
+        System.Console.WriteLine(msg);
+        bool isInt = false;
+        int output = 0;
+
+        while (!isInt)
+        {
+            System.Console.WriteLine("Integers only please");
+
+        }
+        return output;
+    }
 }
