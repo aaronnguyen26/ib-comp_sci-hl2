@@ -16,4 +16,12 @@ internal class OOPReportCardApp
         }
         return false;
     }
+
+    public static string GetString(string msg)
+    {
+        System.Console.WriteLine(msg);
+        string output = Console.ReadLine();
+        return output;
+    }
+
 }
