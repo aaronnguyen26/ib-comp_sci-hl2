@@ -7,38 +7,78 @@ using OOPReportCard.Models;
 
 namespace OOPReportCard.Data
 {
-    public class StudentData
+    namespace OOPReportCard.Data
     {
-        private const char D = '|'; // why don't we get it seperated by a comma
-        public List<StudentModel> students = new List<StudentModel>();
-        public StudentModel GetStudent()
+        public class StudentData
         {
-            StudentModel student = new StudentModel()
+            private const char D = '|';
+            public List<StudentModel> students = new List<StudentModel>();
+            public StudentModel GetStudent()
             {
-                FirstName = DataHelper.GetString("Please enter first name:"),
-                LastName = DataHelper.GetString("Please enter last name:"),
-                Age = DataHelper.GetInt("Please enter age:"),
-                Email = DataHelper.GetString("Please enter email:"),
-                GradeLevel = DataHelper.GetInt("Please enter grade level:")
-            };
-
-            students.Add(student);
-            return student;
-        }
-
-        public void SaveStudent()
-        {
-            string docPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            using (StreamWriter sw = new StreamWriter(Path.Combine(docPath, "Students.txt")))
-            {
-                sw.WriteLine("FirstName|LastName|Age|Email|GradeLevel");
-                foreach (StudentModel s in students)
+                StudentModel student = new StudentModel()
                 {
-                    sw.WriteLine($"{s.FirstName}{D}{s.LastName}{D}{s.Age}{D}{s.Email}{D}{s.GradeLevel}");
+                    FirstName = DataHelper.GetString("Please enter first name:"),
+                    LastName = DataHelper.GetString("Please enter last name:"),
+                    Age = DataHelper.GetInt("Please enter age:"),
+                    Email = DataHelper.GetString("Please enter Email:"),
+                    GradeLevel = DataHelper.GetInt("Please enter grade level:")
+                };
+
+                students.Add(student);
+                return student;
+
+            }
+
+            public void SaveStudents()
+            {
+                string docPath = Environment.GetFolderPath
+                   (Environment.SpecialFolder.MyDocuments);
+
+                using (StreamWriter sw = new StreamWriter(Path.Combine(docPath, "StudentFile.txt")))
+                {
+                    sw.WriteLine("FirstName|LastName|Age|Email|Gradelevel");
+                    foreach (StudentModel s in students)
+                    {
+                        sw.WriteLine($"{s.FirstName}{D}{s.LastName}{D}{s.Age}{D}{s.Email}{D}{s.GradeLevel}{D}");
+                    }
                 }
+
+            }
+
+            public List<StudentModel> LoadStudents()
+            {
+                students.Clear();
+
+                string docPath = Environment.GetFolderPath
+                    (Environment.SpecialFolder.MyDocuments);
+
+                using (StreamReader reader = new StreamReader(docPath + "\\StudentFile.txt"))
+                {
+                    List<string> lines = new List<string>();
+                    string line;
+
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        lines.Add(line);
+                    }
+
+                    for (int i = 1; i < lines.Count; i++)
+                    {
+                        string[] fields = lines[i].Split(D);
+                        StudentModel student = new StudentModel()
+                        {
+                            FirstName = fields[0],
+                            LastName = fields[1],
+                            Age = Int32.Parse(fields[2]),
+                            Email = fields[3],
+                            GradeLevel = Int32.Parse(fields[4])
+                        };
+                        students.Add(student);
+                    }
+                    return students;
+                }
+
             }
         }
-
-
     }
 }
